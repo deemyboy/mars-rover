@@ -1,7 +1,7 @@
 import { createPlateau } from "./modules/plateau";
 import { createMarsRover } from "./modules/rover";
 
-export const mr = createMarsRover("north", 6, 0);
+export const mr = createMarsRover("North", 6, 0);
 export const plateau = createPlateau(60, 60);
 
 export function mars_rover() {

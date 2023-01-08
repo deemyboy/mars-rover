@@ -1,16 +1,19 @@
 interface Rover {
-    facing: string | undefined;
+    facing: facingCompass | undefined;
     x: number | undefined;
     y: number | undefined;
     turnLeft(): any;
     turnRight(): any;
     move(): any;
+    getFacing(): any;
 }
 
 const compassDirections = ["North", "East", "South", "West"] as const;
 
+type facingCompass = typeof compassDirections[number];
+
 export const createMarsRover = (
-    facing?: string,
+    facing?: facingCompass,
     x?: number,
     y?: number
 ): Rover => {
@@ -18,9 +21,14 @@ export const createMarsRover = (
         facing: facing,
         x: x,
         y: y,
-        turnLeft() {},
+        turnLeft() {
+            console.log(this.facing);
+        },
         turnRight() {},
         move() {},
+        getFacing() {
+            return this.facing;
+        },
     };
     // facing: string;
     // move(): void;
