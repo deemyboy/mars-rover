@@ -113,7 +113,6 @@ describe("testing adding rovers on the edge cases 0,0 and 100,100 to 100x100 pla
 describe("testing turn left ", () => {
     let myRover = createMarsRover("West", 0, 0);
     const myRover2 = myRover.turnLeft();
-    // const surface = makeTheSurfaceOfMars(100, 100, rovers);
     test("myRover should face south", () => {
         expect(myRover2.getFacing()).toBe("South");
     });
@@ -133,7 +132,6 @@ describe("testing turn left ", () => {
 describe("testing turn right ", () => {
     let myRover = createMarsRover("West", 0, 0);
     const myRover2 = myRover.turnRight();
-    // const surface = makeTheSurfaceOfMars(100, 100, rovers);
     test("myRover should face north", () => {
         expect(myRover2.getFacing()).toBe("North");
     });
@@ -153,7 +151,6 @@ describe("testing turn right ", () => {
 describe("testing move ", () => {
     test("myRover should move along the x-axis to 9", () => {
         let myRover = createMarsRover("West", 10, 10);
-
         let rovers = [];
         rovers.push(myRover);
         const surface = makeTheSurfaceOfMars(100, 100, rovers);
@@ -163,7 +160,6 @@ describe("testing move ", () => {
     });
     test("myRover should move along the y-axis to 9", () => {
         let myRover = createMarsRover("South", 10, 10);
-
         let rovers = [];
         rovers.push(myRover);
         const surface = makeTheSurfaceOfMars(100, 100, rovers);
@@ -173,7 +169,6 @@ describe("testing move ", () => {
     });
     test("myRover should move along the x-axis to 11", () => {
         let myRover = createMarsRover("East", 10, 10);
-
         let rovers = [];
         rovers.push(myRover);
         const surface = makeTheSurfaceOfMars(100, 100, rovers);
@@ -183,7 +178,6 @@ describe("testing move ", () => {
     });
     test("myRover should move along the y-axis to 11", () => {
         let myRover = createMarsRover("North", 10, 10);
-
         let rovers = [];
         rovers.push(myRover);
         const surface = makeTheSurfaceOfMars(100, 100, rovers);
@@ -193,7 +187,6 @@ describe("testing move ", () => {
     });
     test("myRover should NOT move along the x-axis to -1 and stay at 0", () => {
         let myRover = createMarsRover("West", 0, 10);
-
         let rovers = [];
         rovers.push(myRover);
         const surface = makeTheSurfaceOfMars(100, 100, rovers);
@@ -213,7 +206,6 @@ describe("testing move ", () => {
     });
     test("myRover should NOT move along the x-axis to xMax +1 === 101 and stay at 100", () => {
         let myRover = createMarsRover("East", 100, 10);
-
         let rovers = [];
         rovers.push(myRover);
         const surface = makeTheSurfaceOfMars(100, 100, rovers);
@@ -223,7 +215,6 @@ describe("testing move ", () => {
     });
     test("myRover should NOT move along the y-axis to yMax +1 === 101 and stay at 100", () => {
         let myRover = createMarsRover("North", 10, 100);
-
         let rovers = [];
         rovers.push(myRover);
         const surface = makeTheSurfaceOfMars(100, 100, rovers);
@@ -234,9 +225,7 @@ describe("testing move ", () => {
 });
 // testing rover can accept commands
 describe(" test if rover can accept commands can control ", () => {
-    //
     let myRover = createMarsRover("East", 10, 10);
-
     let rovers = [];
     rovers.push(myRover);
     const surface = makeTheSurfaceOfMars(100, 100, rovers);

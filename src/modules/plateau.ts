@@ -1,4 +1,4 @@
-import { Rover } from "./rover";
+import { Rover, compassDirections } from "./rover";
 export interface Plateau {
     xAxisLength: number;
     yAxisLength: number;

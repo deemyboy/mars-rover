@@ -8,12 +8,14 @@ export interface Rover {
     turnRight(): Rover;
     move(plateau: Plateau): any;
     getFacing(): facingCompassDirection;
-    followOrders(orders: string, plateau: Plateau): Rover;
+    followOrders(orders: LegalMoves, plateau: Plateau): Rover;
 }
 
-const compassDirections = ["North", "East", "South", "West"] as const;
+export const compassDirections = ["North", "East", "South", "West"] as const;
+export const orders = ["L", "R", "M"] as const;
 
-type facingCompassDirection = typeof compassDirections[number];
+export type facingCompassDirection = typeof compassDirections[number];
+type LegalMoves = typeof orders[number];
 
 export const createMarsRover = (
     facing: facingCompassDirection,
@@ -75,8 +77,13 @@ export const createMarsRover = (
         getFacing(): facingCompassDirection {
             return this.facing;
         },
-        followOrders(orders: string, plateau: Plateau): Rover {
-            const returnRover = { ...this };
+        followOrders(orders: LegalMoves, plateau: Plateau): Rover {
+            let returnRover = { ...this };
+            [...orders].forEach((o) => {
+                if (o === "M") returnRover = returnRover.move(plateau);
+                if (o === "L") returnRover = returnRover.turnLeft();
+                if (o === "R") returnRover = returnRover.turnRight();
+            });
             return returnRover;
         },
     };
