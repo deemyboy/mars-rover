@@ -127,7 +127,6 @@ describe("testing turn left ", () => {
     });
     const myRover5 = myRover4.turnLeft();
     test("myRover5 should face west", () => {
-        console.log(myRover5.getFacing());
         expect(myRover5.getFacing()).toBe("West");
     });
 });

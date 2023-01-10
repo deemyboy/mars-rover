@@ -23,7 +23,14 @@ export function makeTheSurfaceOfMars(
         const newRovers: Rover[] = rovers.filter((rov) => {
             return plateau.doesThisRoverFit(rov);
         });
-
+        const floaters = rovers.filter((rov) => {
+            return newRovers.indexOf(rov) < 0;
+        });
+        if (floaters && floaters.length > 0)
+            console.log(
+                "these rovers are floating in space somewhere (illegal)",
+                floaters
+            );
         return { marsRoversOnTheSurface: newRovers, plateau: marsPlateau };
     };
     return createSurface(marsRoversOnTheSurface, marsPlateau);
