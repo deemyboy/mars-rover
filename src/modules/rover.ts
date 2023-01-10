@@ -1,10 +1,12 @@
+import { Plateau } from "./plateau";
+
 export interface Rover {
     facing: facingCompassDirection;
     x: number;
     y: number;
     turnLeft(): Rover;
     turnRight(): Rover;
-    move?(): any;
+    move(plateau: Plateau): any;
     getFacing(): any;
 }
 
@@ -24,22 +26,35 @@ export const createMarsRover = (
         turnLeft(): Rover {
             let returnRover = { ...this };
             const maxCompassIndex = compassDirections.length - 1;
-            let curentDirection = this.facing;
-            let index = compassDirections.indexOf(curentDirection);
-            index = index === 0 ? maxCompassIndex : index - 1;
+            const curentDirection = this.facing;
+            const index =
+                compassDirections.indexOf(curentDirection) === 0
+                    ? maxCompassIndex
+                    : compassDirections.indexOf(curentDirection) - 1;
             returnRover.facing = compassDirections[index];
             return returnRover;
         },
         turnRight(): Rover {
             let returnRover = { ...this };
             const maxCompassIndex = compassDirections.length - 1;
-            let curentDirection = this.facing;
-            let index = compassDirections.indexOf(curentDirection);
-            index = index === maxCompassIndex ? 0 : index + 1;
+            const curentDirection = this.facing;
+            const index =
+                compassDirections.indexOf(curentDirection) === maxCompassIndex
+                    ? 0
+                    : compassDirections.indexOf(curentDirection) + 1;
             returnRover.facing = compassDirections[index];
             return returnRover;
         },
-        move() {},
+        move(plateau): Rover {
+            let returnRover = { ...this };
+            if (
+                returnRover.facing === "North" ||
+                returnRover.facing === "East"
+            ) {
+                // increment
+            }
+            return returnRover;
+        },
         getFacing() {
             return this.facing;
         },

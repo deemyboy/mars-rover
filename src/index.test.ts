@@ -115,18 +115,14 @@ describe("testing turn left ", () => {
     const myRover2 = myRover.turnLeft();
     // const surface = makeTheSurfaceOfMars(100, 100, rovers);
     test("myRover should face south", () => {
-        console.log(myRover2.getFacing());
         expect(myRover2.getFacing()).toBe("South");
     });
     const myRover3 = myRover2.turnLeft();
     test("myRover3 should face east", () => {
-        console.log(myRover3.getFacing());
         expect(myRover3.getFacing()).toBe("East");
     });
     const myRover4 = myRover3.turnLeft();
     test("myRover should face north", () => {
-        console.log(myRover4.getFacing());
-
         expect(myRover4.getFacing()).toBe("North");
     });
     const myRover5 = myRover4.turnLeft();
@@ -140,23 +136,30 @@ describe("testing turn right ", () => {
     const myRover2 = myRover.turnRight();
     // const surface = makeTheSurfaceOfMars(100, 100, rovers);
     test("myRover should face north", () => {
-        console.log(myRover2.getFacing());
         expect(myRover2.getFacing()).toBe("North");
     });
     const myRover3 = myRover2.turnRight();
     test("myRover3 should face east", () => {
-        console.log(myRover3.getFacing());
         expect(myRover3.getFacing()).toBe("East");
     });
     const myRover4 = myRover3.turnRight();
     test("myRover should face south", () => {
-        console.log(myRover4.getFacing());
-
         expect(myRover4.getFacing()).toBe("South");
     });
     const myRover5 = myRover4.turnRight();
     test("myRover5 should face west", () => {
-        console.log(myRover5.getFacing());
         expect(myRover5.getFacing()).toBe("West");
+    });
+});
+describe("testing move ", () => {
+    test("my should move the x-axis towards 0", () => {
+        let myRover = createMarsRover("West", 10, 10);
+
+        let rovers = [];
+        rovers.push(myRover);
+        const surface = makeTheSurfaceOfMars(100, 100, rovers);
+        const myMovingRover = surface.marsRoversOnTheSurface[0];
+        const myMovedRover = myMovingRover.move(surface.plateau);
+        expect(myMovedRover.x).toBe(9);
     });
 });
