@@ -192,4 +192,44 @@ describe("testing move ", () => {
         const myMovedRover = myMovingRover.move(surface.plateau);
         expect(myMovedRover.y).toBe(11);
     });
+    test("myRover should NOT move along the x-axis to -1 and stay at 0", () => {
+        let myRover = createMarsRover("West", 0, 10);
+
+        let rovers = [];
+        rovers.push(myRover);
+        const surface = makeTheSurfaceOfMars(100, 100, rovers);
+        const myMovingRover = surface.marsRoversOnTheSurface[0];
+        const myMovedRover = myMovingRover.move(surface.plateau);
+        expect(myMovedRover.x).toBe(0);
+    });
+    test("myRover should NOT move along the y-axis to -1 and stay at 0", () => {
+        let myRover = createMarsRover("South", 10, 0);
+
+        let rovers = [];
+        rovers.push(myRover);
+        const surface = makeTheSurfaceOfMars(100, 100, rovers);
+        const myMovingRover = surface.marsRoversOnTheSurface[0];
+        const myMovedRover = myMovingRover.move(surface.plateau);
+        expect(myMovedRover.y).toBe(0);
+    });
+    test("myRover should NOT move along the x-axis to xMax +1 === 101 and stay at 100", () => {
+        let myRover = createMarsRover("East", 100, 10);
+
+        let rovers = [];
+        rovers.push(myRover);
+        const surface = makeTheSurfaceOfMars(100, 100, rovers);
+        const myMovingRover = surface.marsRoversOnTheSurface[0];
+        const myMovedRover = myMovingRover.move(surface.plateau);
+        expect(myMovedRover.x).toBe(100);
+    });
+    test("myRover should NOT move along the y-axis to yMax +1 === 101 and stay at 100", () => {
+        let myRover = createMarsRover("North", 10, 100);
+
+        let rovers = [];
+        rovers.push(myRover);
+        const surface = makeTheSurfaceOfMars(100, 100, rovers);
+        const myMovingRover = surface.marsRoversOnTheSurface[0];
+        const myMovedRover = myMovingRover.move(surface.plateau);
+        expect(myMovedRover.y).toBe(100);
+    });
 });
