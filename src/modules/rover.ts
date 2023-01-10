@@ -46,12 +46,28 @@ export const createMarsRover = (
             return returnRover;
         },
         move(plateau): Rover {
-            let returnRover = { ...this };
-            if (
-                returnRover.facing === "North" ||
-                returnRover.facing === "East"
-            ) {
+            const maxX = plateau.xAxisLength;
+            const maxY = plateau.yAxisLength;
+            const returnRover = { ...this };
+            const facing = returnRover.getFacing();
+            if (facing === "North" || facing === "East") {
                 // increment
+                if (facing === "North") {
+                    returnRover.y =
+                        returnRover.y === maxY ? maxY : returnRover.y + 1;
+                }
+                if (facing === "East") {
+                    returnRover.x =
+                        returnRover.x === maxX ? maxX : returnRover.x + 1;
+                }
+            } else {
+                // decrement
+                if (facing === "South") {
+                    returnRover.y = returnRover.y === 0 ? 0 : returnRover.y - 1;
+                }
+                if (facing === "West") {
+                    returnRover.x = returnRover.x === 0 ? 0 : returnRover.x - 1;
+                }
             }
             return returnRover;
         },

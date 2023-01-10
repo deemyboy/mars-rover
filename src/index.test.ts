@@ -152,7 +152,7 @@ describe("testing turn right ", () => {
     });
 });
 describe("testing move ", () => {
-    test("my should move the x-axis towards 0", () => {
+    test("myRover should move along the x-axis to 9", () => {
         let myRover = createMarsRover("West", 10, 10);
 
         let rovers = [];
@@ -161,5 +161,35 @@ describe("testing move ", () => {
         const myMovingRover = surface.marsRoversOnTheSurface[0];
         const myMovedRover = myMovingRover.move(surface.plateau);
         expect(myMovedRover.x).toBe(9);
+    });
+    test("myRover should move along the y-axis to 9", () => {
+        let myRover = createMarsRover("South", 10, 10);
+
+        let rovers = [];
+        rovers.push(myRover);
+        const surface = makeTheSurfaceOfMars(100, 100, rovers);
+        const myMovingRover = surface.marsRoversOnTheSurface[0];
+        const myMovedRover = myMovingRover.move(surface.plateau);
+        expect(myMovedRover.y).toBe(9);
+    });
+    test("myRover should move along the x-axis to 11", () => {
+        let myRover = createMarsRover("East", 10, 10);
+
+        let rovers = [];
+        rovers.push(myRover);
+        const surface = makeTheSurfaceOfMars(100, 100, rovers);
+        const myMovingRover = surface.marsRoversOnTheSurface[0];
+        const myMovedRover = myMovingRover.move(surface.plateau);
+        expect(myMovedRover.x).toBe(11);
+    });
+    test("myRover should move along the y-axis to 11", () => {
+        let myRover = createMarsRover("North", 10, 10);
+
+        let rovers = [];
+        rovers.push(myRover);
+        const surface = makeTheSurfaceOfMars(100, 100, rovers);
+        const myMovingRover = surface.marsRoversOnTheSurface[0];
+        const myMovedRover = myMovingRover.move(surface.plateau);
+        expect(myMovedRover.y).toBe(11);
     });
 });
