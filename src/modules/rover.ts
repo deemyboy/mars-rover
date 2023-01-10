@@ -7,7 +7,8 @@ export interface Rover {
     turnLeft(): Rover;
     turnRight(): Rover;
     move(plateau: Plateau): any;
-    getFacing(): any;
+    getFacing(): facingCompassDirection;
+    followOrders(orders: string, plateau: Plateau): Rover;
 }
 
 const compassDirections = ["North", "East", "South", "West"] as const;
@@ -45,7 +46,7 @@ export const createMarsRover = (
             returnRover.facing = compassDirections[index];
             return returnRover;
         },
-        move(plateau): Rover {
+        move(plateau: Plateau): Rover {
             const maxX = plateau.xAxisLength;
             const maxY = plateau.yAxisLength;
             const returnRover = { ...this };
@@ -71,8 +72,12 @@ export const createMarsRover = (
             }
             return returnRover;
         },
-        getFacing() {
+        getFacing(): facingCompassDirection {
             return this.facing;
+        },
+        followOrders(orders: string, plateau: Plateau): Rover {
+            const returnRover = { ...this };
+            return returnRover;
         },
     };
     return marsRover;

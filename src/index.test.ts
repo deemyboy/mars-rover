@@ -235,18 +235,16 @@ describe("testing move ", () => {
 });
 // testing rover can accept commands
 describe(" test if rover can accept commands can control ", () => {
-    test("if I send 'M' will it move forward", () => {
-        //
-        let myRover = createMarsRover("East", 10, 10);
+    //
+    let myRover = createMarsRover("East", 10, 10);
 
-        let rovers = [];
-        rovers.push(myRover);
-        const surface = makeTheSurfaceOfMars(100, 100, rovers);
-        const myMovingRover = surface.marsRoversOnTheSurface[0];
-        const myMovedRover = myMovingRover.followOrders("M", surface.plateau);
-        test("send 'M' and it should move forward (+1) on the x-axis", () => {
-            expect(myMovedRover.x).toBe(11);
-        });
+    let rovers = [];
+    rovers.push(myRover);
+    const surface = makeTheSurfaceOfMars(100, 100, rovers);
+    const myMovingRover = surface.marsRoversOnTheSurface[0];
+    const myMovedRover = myMovingRover.followOrders("M", surface.plateau);
+    test("send 'M' and it should move forward (+1) on the x-axis", () => {
+        expect(myMovedRover.x).toBe(11);
     });
 });
 // test boilerplate
