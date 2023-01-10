@@ -5,26 +5,13 @@ interface SurfaceOfMars {
     newRover?: Rover;
     marsRoversOnTheSurface: Rover[];
     plateau: Plateau;
-    // surface:{};
-    // willNewRoverFit(): any;
 }
-
-// export const mr = createMarsRover("North", 6, 0);
-// export const plateau = createPlateau(60, 60);
 
 export function makeTheSurfaceOfMars(
     xAxisLength: number,
     yAxisLength: number,
     marsRoversOnTheSurface: Rover[]
 ): SurfaceOfMars {
-    //
-
-    // const marsRovers: Rover[] = [
-    //     createMarsRover("West", 53, 21),
-    //     createMarsRover("North", 3, 56),
-    //     createMarsRover("West", 33, 2),
-    // ];
-
     const marsPlateau = createPlateau(xAxisLength, yAxisLength);
 
     const createSurface = (
