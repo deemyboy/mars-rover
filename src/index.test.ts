@@ -223,18 +223,37 @@ describe("testing move ", () => {
         expect(myMovedRover.y).toBe(100);
     });
 });
-// testing rover can accept commands
-describe(" test if rover can accept commands can control ", () => {
+// testing rover can accept a single command
+describe("test if rover can accept M (move) commands", () => {
     let myRover = createMarsRover("East", 10, 10);
+    let myRover2 = createMarsRover("North", 10, 10);
+    let myRover3 = createMarsRover("West", 10, 10);
+    let myRove4 = createMarsRover("South", 10, 10);
     let rovers = [];
-    rovers.push(myRover);
+    rovers.push(myRover, myRover2, myRover3, myRove4);
     const surface = makeTheSurfaceOfMars(100, 100, rovers);
-    const myMovingRover = surface.marsRoversOnTheSurface[0];
-    const myMovedRover = myMovingRover.followOrders("M", surface.plateau);
+    let myMovingRover = surface.marsRoversOnTheSurface[0];
+    let myMovedRover = myMovingRover.followOrders("M", surface.plateau);
     test("send 'M' and it should move forward (+1) on the x-axis", () => {
         expect(myMovedRover.x).toBe(11);
     });
+    let myMovingRover2 = surface.marsRoversOnTheSurface[1];
+    let myMovedRover2 = myMovingRover2.followOrders("M", surface.plateau);
+    test("send 'M' and it should move upward (+1) on the y-axis", () => {
+        expect(myMovedRover2.y).toBe(11);
+    });
+    let myMovingRover3 = surface.marsRoversOnTheSurface[2];
+    let myMovedRover3 = myMovingRover3.followOrders("M", surface.plateau);
+    test("send 'M' and it should move backward (-1) on the x-axis", () => {
+        expect(myMovedRover3.x).toBe(9);
+    });
+    let myMovingRover4 = surface.marsRoversOnTheSurface[3];
+    let myMovedRover4 = myMovingRover4.followOrders("M", surface.plateau);
+    test("send 'M' and it should move downward (-1) on the y-axis", () => {
+        expect(myMovedRover4.y).toBe(9);
+    });
 });
+
 // test boilerplate
 describe(" desciption ", () => {
     // test("specific test details", () => {
