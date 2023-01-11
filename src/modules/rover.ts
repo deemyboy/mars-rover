@@ -4,21 +4,14 @@ export interface Rover {
     facing: facingCompassDirection;
     x: number;
     y: number;
-    turnLeft(): Rover;
-    turnRight(): Rover;
+    turnLeft(): facingCompassDirection;
+    turnRight(): facingCompassDirection;
     move(plateau: Plateau): any;
     getFacing(): facingCompassDirection;
     followOrders(orders: string, plateau: Plateau): Rover;
 }
 
 export const compassDirections = ["North", "East", "South", "West"] as const;
-type Order = "L" | "R" | "M";
-
-type OnlyOrderChar<S> = S extends ""
-    ? unknown
-    : S extends `${Order}${infer Tail}`
-    ? OnlyOrderChar<Tail>
-    : never;
 
 export type facingCompassDirection = typeof compassDirections[number];
 
@@ -31,53 +24,48 @@ export const createMarsRover = (
         facing: facing,
         x: x,
         y: y,
-        turnLeft(): Rover {
-            let returnRover = { ...this };
+        turnLeft(): facingCompassDirection {
             const maxCompassIndex = compassDirections.length - 1;
             const curentDirection = this.facing;
             const index =
                 compassDirections.indexOf(curentDirection) === 0
                     ? maxCompassIndex
                     : compassDirections.indexOf(curentDirection) - 1;
-            returnRover.facing = compassDirections[index];
-            return returnRover;
+            this.facing = compassDirections[index];
+            return this.facing;
         },
-        turnRight(): Rover {
-            let returnRover = { ...this };
+        turnRight(): facingCompassDirection {
             const maxCompassIndex = compassDirections.length - 1;
             const curentDirection = this.facing;
             const index =
                 compassDirections.indexOf(curentDirection) === maxCompassIndex
                     ? 0
                     : compassDirections.indexOf(curentDirection) + 1;
-            returnRover.facing = compassDirections[index];
-            return returnRover;
+            this.facing = compassDirections[index];
+            return this.facing;
         },
         move(plateau: Plateau): Rover {
             const maxX = plateau.xAxisLength;
             const maxY = plateau.yAxisLength;
-            const returnRover = { ...this };
-            const facing = returnRover.getFacing();
+            const facing = this.getFacing();
             if (facing === "North" || facing === "East") {
                 // increment
                 if (facing === "North") {
-                    returnRover.y =
-                        returnRover.y === maxY ? maxY : returnRover.y + 1;
+                    this.y = this.y === maxY ? maxY : this.y + 1;
                 }
                 if (facing === "East") {
-                    returnRover.x =
-                        returnRover.x === maxX ? maxX : returnRover.x + 1;
+                    this.x = this.x === maxX ? maxX : this.x + 1;
                 }
             } else {
                 // decrement
                 if (facing === "South") {
-                    returnRover.y = returnRover.y === 0 ? 0 : returnRover.y - 1;
+                    this.y = this.y === 0 ? 0 : this.y - 1;
                 }
                 if (facing === "West") {
-                    returnRover.x = returnRover.x === 0 ? 0 : returnRover.x - 1;
+                    this.x = this.x === 0 ? 0 : this.x - 1;
                 }
             }
-            return returnRover;
+            return this;
         },
         getFacing(): facingCompassDirection {
             return this.facing;
@@ -86,8 +74,8 @@ export const createMarsRover = (
             let returnRover = { ...this };
             [...orders].forEach((o) => {
                 if (o === "M") returnRover = returnRover.move(plateau);
-                if (o === "L") returnRover = returnRover.turnLeft();
-                if (o === "R") returnRover = returnRover.turnRight();
+                if (o === "L") returnRover.facing = returnRover.turnLeft();
+                if (o === "R") returnRover.facing = returnRover.turnRight();
             });
             return returnRover;
         },

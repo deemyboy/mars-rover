@@ -17,15 +17,15 @@ describe("mars rover is created facing north at x6,y0", () => {
     });
 });
 describe("testing plateau dimensions", () => {
-    const plateau = createPlateau(60, 60);
-    test("a plateau is created with x-axis length = 60", () => {
-        expect(plateau.xAxisLength).toBe(60);
+    const plateau = createPlateau(X_MAX, Y_MAX);
+    test(`a plateau is created with x-axis length = ${X_MAX}`, () => {
+        expect(plateau.xAxisLength).toBe(X_MAX);
     });
-    test("a plateau is created with y-axis length = 60", () => {
-        expect(plateau.yAxisLength).toBe(60);
+    test(`a plateau is created with y-axis length = ${Y_MAX}`, () => {
+        expect(plateau.yAxisLength).toBe(Y_MAX);
     });
     test("a plateau is created with area 60x60=3600", () => {
-        expect(plateau.xAxisLength * plateau.yAxisLength).toBe(3600);
+        expect(plateau.xAxisLength * plateau.yAxisLength).toBe(X_MAX * Y_MAX);
     });
 });
 describe("testing area of plateau", () => {
@@ -53,7 +53,7 @@ describe("testing adding legal and illegal rovers to the surface", () => {
     test("empty rovers array will be empty", () => {
         expect(surface0.marsRoversOnTheSurface).toEqual([]);
     });
-    const myRover0 = createMarsRover("West", 0 - 99, 10);
+    const myRover0 = createMarsRover("West", 0 - Y_MAX - 1, 10);
     const myRover1 = createMarsRover("West", X_MAX - 1, Y_MAX + 35);
     const myRover2 = createMarsRover("West", X_MAX - 1, Y_MAX - 1);
     const surface1 = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
@@ -114,43 +114,74 @@ describe(`testing adding rovers on the edge cases 0,0 and ${X_MAX},${Y_MAX} to $
     });
 });
 describe("testing turn left ", () => {
+    let myRover = createMarsRover("North", 0, 0);
+    myRover = { ...myRover, facing: myRover.turnLeft() };
+    test("myRover should face West", () => {
+        expect(myRover.getFacing()).toBe("West");
+    });
+});
+describe("testing turn left ", () => {
     let myRover = createMarsRover("West", 0, 0);
-    const myRover2 = myRover.turnLeft();
-    test("myRover should face south", () => {
-        expect(myRover2.getFacing()).toBe("South");
+    myRover = { ...myRover, facing: myRover.turnLeft() };
+    test("myRover should face South", () => {
+        expect(myRover.getFacing()).toBe("South");
     });
-    const myRover3 = myRover2.turnLeft();
-    test("myRover3 should face east", () => {
-        expect(myRover3.getFacing()).toBe("East");
+});
+describe("testing turn left ", () => {
+    let myRover = createMarsRover("South", 0, 0);
+    myRover = { ...myRover, facing: myRover.turnLeft() };
+    test("myRover should face East", () => {
+        expect(myRover.getFacing()).toBe("East");
     });
-    const myRover4 = myRover3.turnLeft();
-    test("myRover should face north", () => {
-        expect(myRover4.getFacing()).toBe("North");
-    });
-    const myRover5 = myRover4.turnLeft();
-    test("myRover5 should face west", () => {
-        expect(myRover5.getFacing()).toBe("West");
+});
+describe("testing turn left ", () => {
+    let myRover = createMarsRover("East", 0, 0);
+    myRover = { ...myRover, facing: myRover.turnLeft() };
+    test("myRover should face North", () => {
+        expect(myRover.getFacing()).toBe("North");
     });
 });
 describe("testing turn right ", () => {
-    let myRover = createMarsRover("West", 0, 0);
-    const myRover2 = myRover.turnRight();
-    test("myRover should face north", () => {
+    let myRover2 = createMarsRover("West", 0, 0);
+    myRover2.facing = myRover2.turnRight();
+    test("myRover2 should face North", () => {
         expect(myRover2.getFacing()).toBe("North");
     });
-    const myRover3 = myRover2.turnRight();
-    test("myRover3 should face east", () => {
+});
+describe("testing turn right ", () => {
+    let myRover3 = createMarsRover("North", 0, 0);
+    myRover3.facing = myRover3.turnRight();
+    test("myRover3 should face East", () => {
         expect(myRover3.getFacing()).toBe("East");
     });
-    const myRover4 = myRover3.turnRight();
-    test("myRover should face south", () => {
-        expect(myRover4.getFacing()).toBe("South");
-    });
-    const myRover5 = myRover4.turnRight();
-    test("myRover5 should face west", () => {
-        expect(myRover5.getFacing()).toBe("West");
+});
+describe("testing turn right ", () => {
+    let myRover3 = createMarsRover("East", 0, 0);
+    myRover3.facing = myRover3.turnRight();
+    test("myRover3 should face South", () => {
+        expect(myRover3.getFacing()).toBe("South");
     });
 });
+describe("testing turn right ", () => {
+    let myRover3 = createMarsRover("South", 0, 0);
+    myRover3.facing = myRover3.turnRight();
+    test("myRover3 should face West", () => {
+        expect(myRover3.getFacing()).toBe("West");
+    });
+});
+// const myRover3 = myRover2.turnRight();
+// test("myRover3 should face east", () => {
+//     expect(myRover3.getFacing()).toBe("East");
+// });
+// const myRover4 = myRover3.turnRight();
+// test("myRover should face south", () => {
+//     expect(myRover4.getFacing()).toBe("South");
+// });
+// const myRover5 = myRover4.turnRight();
+// test("myRover5 should face west", () => {
+//     expect(myRover5.getFacing()).toBe("West");
+// });
+// });
 describe("testing move ", () => {
     test("myRover should move along the x-axis to 9", () => {
         let myRover = createMarsRover("West", 10, 10);
