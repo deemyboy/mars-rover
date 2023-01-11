@@ -332,7 +332,9 @@ describe("test if rover can accept M (move) commands", () => {
         "MLMMRMMR",
         surface.plateau
     );
-    test(`send 'MLMMRMMR'  to 'West', ${X_MAX}, 10 -> x=97, facing=North, y=8 `, () => {
+    test(`send 'MLMMRMMR'  to 'West', ${X_MAX}, 10 -> x=${
+        X_MAX - 3
+    }, facing=North, y=8 `, () => {
         expect(myMovedRover3.x).toBe(X_MAX - 3);
         expect(myMovedRover3.facing).toBe("North");
         expect(myMovedRover3.y).toBe(8);
