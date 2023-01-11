@@ -253,6 +253,36 @@ describe("test if rover can accept M (move) commands", () => {
         expect(myMovedRover4.y).toBe(9);
     });
 });
+// testing rover command edge cases
+describe("test if rover can accept M (move) commands", () => {
+    let myRover = createMarsRover("East", 100, 10);
+    let myRover2 = createMarsRover("North", 10, 100);
+    let myRover3 = createMarsRover("West", 0, 10);
+    let myRove4 = createMarsRover("South", 10, 0);
+    let rovers = [];
+    rovers.push(myRover, myRover2, myRover3, myRove4);
+    const surface = makeTheSurfaceOfMars(100, 100, rovers);
+    let myMovingRover = surface.marsRoversOnTheSurface[0];
+    let myMovedRover = myMovingRover.followOrders("M", surface.plateau);
+    test("send 'M' and it stay put", () => {
+        expect(myMovedRover.x).toBe(100);
+    });
+    let myMovingRover2 = surface.marsRoversOnTheSurface[1];
+    let myMovedRover2 = myMovingRover2.followOrders("M", surface.plateau);
+    test("send 'M' and it stay put", () => {
+        expect(myMovedRover2.y).toBe(100);
+    });
+    let myMovingRover3 = surface.marsRoversOnTheSurface[2];
+    let myMovedRover3 = myMovingRover3.followOrders("M", surface.plateau);
+    test("send 'M' and it stay put", () => {
+        expect(myMovedRover3.x).toBe(0);
+    });
+    let myMovingRover4 = surface.marsRoversOnTheSurface[3];
+    let myMovedRover4 = myMovingRover4.followOrders("M", surface.plateau);
+    test("send 'M' and it stay put", () => {
+        expect(myMovedRover4.y).toBe(0);
+    });
+});
 
 // test boilerplate
 describe(" desciption ", () => {
