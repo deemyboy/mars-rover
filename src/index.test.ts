@@ -53,9 +53,9 @@ describe("testing adding legal and illegal rovers to the surface", () => {
     test("empty rovers array will be empty", () => {
         expect(surface0.marsRoversOnTheSurface).toEqual([]);
     });
-    const myRover0 = createMarsRover("West", -99, 10);
-    const myRover1 = createMarsRover("West", 99, 210);
-    const myRover2 = createMarsRover("West", 99, 99);
+    const myRover0 = createMarsRover("West", 0 - 99, 10);
+    const myRover1 = createMarsRover("West", X_MAX - 1, Y_MAX + 35);
+    const myRover2 = createMarsRover("West", X_MAX - 1, Y_MAX - 1);
     const surface1 = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
     surface1.marsRoversOnTheSurface = addNewRover(
         myRover0,
@@ -83,9 +83,9 @@ describe("testing adding legal and illegal rovers to the surface", () => {
     });
 });
 describe("testing building the surface of mars with a mix of legal and illegal rovers", () => {
-    const myRover0 = createMarsRover("West", -99, 10);
-    const myRover1 = createMarsRover("West", 99, 210);
-    const myRover2 = createMarsRover("West", 99, 99);
+    const myRover0 = createMarsRover("West", 0 - 99, 10);
+    const myRover1 = createMarsRover("West", X_MAX - 1, Y_MAX + 35);
+    const myRover2 = createMarsRover("West", X_MAX - 1, Y_MAX - 1);
     const rovers = [];
     rovers.push(myRover0, myRover1, myRover2);
     const surface = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
@@ -333,7 +333,7 @@ describe("test if rover can accept M (move) commands", () => {
         surface.plateau
     );
     test(`send 'MLMMRMMR'  to 'West', ${X_MAX}, 10 -> x=97, facing=North, y=8 `, () => {
-        expect(myMovedRover3.x).toBe(97);
+        expect(myMovedRover3.x).toBe(X_MAX - 3);
         expect(myMovedRover3.facing).toBe("North");
         expect(myMovedRover3.y).toBe(8);
     });
@@ -365,7 +365,7 @@ describe("test if rover can accept M (move) commands", () => {
         surface.plateau
     );
     test(`send 'MLMMRMMR'  to 'West', ${X_MAX}, 10 -> x=97, facing=North, y=8 `, () => {
-        expect(myMovedRover7.x).toBe(97);
+        expect(myMovedRover7.x).toBe(X_MAX - 3);
         expect(myMovedRover7.facing).toBe("North");
         expect(myMovedRover7.y).toBe(8);
     });
