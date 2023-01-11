@@ -283,6 +283,48 @@ describe("test if rover can accept M (move) commands", () => {
         expect(myMovedRover4.y).toBe(0);
     });
 });
+// testing rover mutiple commands
+describe("test if rover can accept M (move) commands", () => {
+    let myRover = createMarsRover("East", 0, 10);
+    let myRover2 = createMarsRover("North", 10, 0);
+    let myRover3 = createMarsRover("West", 100, 10);
+    let myRove4 = createMarsRover("South", 10, 10);
+    let rovers = [];
+    rovers.push(myRover, myRover2, myRover3, myRove4);
+    const surface = makeTheSurfaceOfMars(100, 100, rovers);
+    let myMovingRover = surface.marsRoversOnTheSurface[0];
+    let myMovedRover = myMovingRover.followOrders("MMMMLL", surface.plateau);
+    test("send 'MMMMLL' to East, 0, 10 -> x=4, facing=West", () => {
+        expect(myMovedRover.x).toBe(4);
+        expect(myMovedRover.facing).toBe("West");
+    });
+    test("send 'LL' to East, 0 -> facing=West", () => {});
+    let myMovingRover2 = surface.marsRoversOnTheSurface[1];
+    let myMovedRover2 = myMovingRover2.followOrders("MMMMMMR", surface.plateau);
+    test("send 'MMMMMMR' to 'North', 10, 0 -> y=6, facing=East", () => {
+        expect(myMovedRover2.y).toBe(6);
+        expect(myMovedRover2.facing).toBe("East");
+    });
+    let myMovingRover3 = surface.marsRoversOnTheSurface[2];
+    let myMovedRover3 = myMovingRover3.followOrders(
+        "MLMMRMMR",
+        surface.plateau
+    );
+    test("send 'MLMMRMMR'  to 'West', 100, 10 -> x=97, facing=North, y=8 ", () => {
+        expect(myMovedRover3.x).toBe(97);
+        expect(myMovedRover3.facing).toBe("North");
+        expect(myMovedRover3.y).toBe(8);
+    });
+    let myMovingRover4 = surface.marsRoversOnTheSurface[3];
+    let myMovedRover4 = myMovingRover4.followOrders(
+        "LLMMLLMMLL",
+        surface.plateau
+    );
+    test("send 'LLMMLLMMLL' to South, 10, 10 -> y=10, facing=North ", () => {
+        expect(myMovedRover4.y).toBe(10);
+        expect(myMovedRover3.facing).toBe("North");
+    });
+});
 
 // test boilerplate
 describe(" desciption ", () => {
