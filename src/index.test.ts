@@ -1,6 +1,9 @@
 import { makeTheSurfaceOfMars, addNewRover } from "./index";
 import { createPlateau } from "./modules/plateau";
 import { createMarsRover, Rover } from "./modules/rover";
+
+const X_MAX = 100;
+const Y_MAX = 100;
 describe("mars rover is created facing north at x6,y0", () => {
     const myRover = createMarsRover("North", 6, 0);
     test("a Mars rover is created facing North", () => {
@@ -29,10 +32,10 @@ describe("testing area of plateau", () => {
     const rovers = [];
     const myRover = createMarsRover("West", 53, 21);
     rovers.push(myRover);
-    const surface = makeTheSurfaceOfMars(100, 100, rovers);
-    test("surface plateau is 100 x 100", () => {
+    const surface = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
+    test(`surface plateau is ${X_MAX} x ${Y_MAX}`, () => {
         expect(surface.plateau.xAxisLength * surface.plateau.yAxisLength).toBe(
-            10000
+            X_MAX * Y_MAX
         );
     });
 });
@@ -46,14 +49,14 @@ describe("testing createMarsRover", () => {
 
 describe("testing adding legal and illegal rovers to the surface", () => {
     const rovers: Rover[] = [];
-    const surface0 = makeTheSurfaceOfMars(100, 100, rovers);
+    const surface0 = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
     test("empty rovers array will be empty", () => {
         expect(surface0.marsRoversOnTheSurface).toEqual([]);
     });
     const myRover0 = createMarsRover("West", -99, 10);
     const myRover1 = createMarsRover("West", 99, 210);
     const myRover2 = createMarsRover("West", 99, 99);
-    const surface1 = makeTheSurfaceOfMars(100, 100, rovers);
+    const surface1 = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
     surface1.marsRoversOnTheSurface = addNewRover(
         myRover0,
         surface1.marsRoversOnTheSurface,
@@ -69,13 +72,13 @@ describe("testing adding legal and illegal rovers to the surface", () => {
         surface1.marsRoversOnTheSurface,
         surface1.plateau
     );
-    test("myRover0 will not fit on plateau  100 x 100", () => {
+    test(`myRover0 will not fit on plateau  ${X_MAX} x ${Y_MAX}`, () => {
         expect(surface1.marsRoversOnTheSurface).not.toContain(myRover0);
     });
-    test("myRover1 will not fit on plateau  100 x 100", () => {
+    test(`myRover1 will not fit on plateau  ${X_MAX} x ${Y_MAX}`, () => {
         expect(surface1.marsRoversOnTheSurface).not.toContain(myRover1);
     });
-    test("myRover2 will fit on plateau  100 x 100", () => {
+    test(`myRover2 will fit on plateau  ${X_MAX} x ${Y_MAX}`, () => {
         expect(surface1.marsRoversOnTheSurface).toContain(myRover2);
     });
 });
@@ -85,28 +88,28 @@ describe("testing building the surface of mars with a mix of legal and illegal r
     const myRover2 = createMarsRover("West", 99, 99);
     const rovers = [];
     rovers.push(myRover0, myRover1, myRover2);
-    const surface = makeTheSurfaceOfMars(100, 100, rovers);
-    test("myRover0 will not fit on plateau  100 x 100", () => {
+    const surface = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
+    test(`myRover0 will not fit on plateau  ${X_MAX} x ${Y_MAX}`, () => {
         expect(surface.marsRoversOnTheSurface).not.toContain(myRover0);
     });
-    test("myRover1 will not fit on plateau  100 x 100", () => {
+    test(`myRover1 will not fit on plateau  ${X_MAX} x ${Y_MAX}`, () => {
         expect(surface.marsRoversOnTheSurface).not.toContain(myRover1);
     });
-    test("myRover2 will fit on plateau  100 x 100", () => {
+    test(`myRover2 will fit on plateau  ${X_MAX} x ${Y_MAX}`, () => {
         expect(surface.marsRoversOnTheSurface).toContain(myRover2);
     });
 });
-describe("testing adding rovers on the edge cases 0,0 and 100,100 to 100x100 plateau", () => {
+describe(`testing adding rovers on the edge cases 0,0 and ${X_MAX},${Y_MAX} to ${X_MAX}x${Y_MAX} plateau`, () => {
     const myRover3 = createMarsRover("West", 0, 0);
-    const myRover4 = createMarsRover("South", 100, 100);
+    const myRover4 = createMarsRover("South", X_MAX, Y_MAX);
     const rovers = [];
     rovers.push(myRover3, myRover4);
-    const surface = makeTheSurfaceOfMars(100, 100, rovers);
+    const surface = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
 
-    test("myRover3 will fit on plateau  100 x 100", () => {
+    test(`myRover3 will fit on plateau  ${X_MAX} x ${Y_MAX}`, () => {
         expect(surface.marsRoversOnTheSurface).toContain(myRover3);
     });
-    test("myRover4 will fit on plateau  100 x 100", () => {
+    test(`myRover4 will fit on plateau  ${X_MAX} x ${Y_MAX}`, () => {
         expect(surface.marsRoversOnTheSurface).toContain(myRover4);
     });
 });
@@ -153,7 +156,7 @@ describe("testing move ", () => {
         let myRover = createMarsRover("West", 10, 10);
         let rovers = [];
         rovers.push(myRover);
-        const surface = makeTheSurfaceOfMars(100, 100, rovers);
+        const surface = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
         const myMovingRover = surface.marsRoversOnTheSurface[0];
         const myMovedRover = myMovingRover.move(surface.plateau);
         expect(myMovedRover.x).toBe(9);
@@ -162,7 +165,7 @@ describe("testing move ", () => {
         let myRover = createMarsRover("South", 10, 10);
         let rovers = [];
         rovers.push(myRover);
-        const surface = makeTheSurfaceOfMars(100, 100, rovers);
+        const surface = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
         const myMovingRover = surface.marsRoversOnTheSurface[0];
         const myMovedRover = myMovingRover.move(surface.plateau);
         expect(myMovedRover.y).toBe(9);
@@ -171,7 +174,7 @@ describe("testing move ", () => {
         let myRover = createMarsRover("East", 10, 10);
         let rovers = [];
         rovers.push(myRover);
-        const surface = makeTheSurfaceOfMars(100, 100, rovers);
+        const surface = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
         const myMovingRover = surface.marsRoversOnTheSurface[0];
         const myMovedRover = myMovingRover.move(surface.plateau);
         expect(myMovedRover.x).toBe(11);
@@ -180,7 +183,7 @@ describe("testing move ", () => {
         let myRover = createMarsRover("North", 10, 10);
         let rovers = [];
         rovers.push(myRover);
-        const surface = makeTheSurfaceOfMars(100, 100, rovers);
+        const surface = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
         const myMovingRover = surface.marsRoversOnTheSurface[0];
         const myMovedRover = myMovingRover.move(surface.plateau);
         expect(myMovedRover.y).toBe(11);
@@ -189,7 +192,7 @@ describe("testing move ", () => {
         let myRover = createMarsRover("West", 0, 10);
         let rovers = [];
         rovers.push(myRover);
-        const surface = makeTheSurfaceOfMars(100, 100, rovers);
+        const surface = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
         const myMovingRover = surface.marsRoversOnTheSurface[0];
         const myMovedRover = myMovingRover.move(surface.plateau);
         expect(myMovedRover.x).toBe(0);
@@ -199,28 +202,32 @@ describe("testing move ", () => {
 
         let rovers = [];
         rovers.push(myRover);
-        const surface = makeTheSurfaceOfMars(100, 100, rovers);
+        const surface = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
         const myMovingRover = surface.marsRoversOnTheSurface[0];
         const myMovedRover = myMovingRover.move(surface.plateau);
         expect(myMovedRover.y).toBe(0);
     });
-    test("myRover should NOT move along the x-axis to xMax +1 === 101 and stay at 100", () => {
-        let myRover = createMarsRover("East", 100, 10);
+    test(`myRover should NOT move along the x-axis to xMax +1 === ${
+        X_MAX + 1
+    } and stay at ${X_MAX}`, () => {
+        let myRover = createMarsRover("East", X_MAX, 10);
         let rovers = [];
         rovers.push(myRover);
-        const surface = makeTheSurfaceOfMars(100, 100, rovers);
+        const surface = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
         const myMovingRover = surface.marsRoversOnTheSurface[0];
         const myMovedRover = myMovingRover.move(surface.plateau);
-        expect(myMovedRover.x).toBe(100);
+        expect(myMovedRover.x).toBe(X_MAX);
     });
-    test("myRover should NOT move along the y-axis to yMax +1 === 101 and stay at 100", () => {
-        let myRover = createMarsRover("North", 10, 100);
+    test(`myRover should NOT move along the y-axis to yMax +1 === ${
+        Y_MAX + 1
+    } and stay at ${Y_MAX}`, () => {
+        let myRover = createMarsRover("North", 10, Y_MAX);
         let rovers = [];
         rovers.push(myRover);
-        const surface = makeTheSurfaceOfMars(100, 100, rovers);
+        const surface = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
         const myMovingRover = surface.marsRoversOnTheSurface[0];
         const myMovedRover = myMovingRover.move(surface.plateau);
-        expect(myMovedRover.y).toBe(100);
+        expect(myMovedRover.y).toBe(Y_MAX);
     });
 });
 // testing rover can accept a single command
@@ -231,7 +238,7 @@ describe("test if rover can accept M (move) commands", () => {
     let myRove4 = createMarsRover("South", 10, 10);
     let rovers = [];
     rovers.push(myRover, myRover2, myRover3, myRove4);
-    const surface = makeTheSurfaceOfMars(100, 100, rovers);
+    const surface = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
     let myMovingRover = surface.marsRoversOnTheSurface[0];
     let myMovedRover = myMovingRover.followOrders("M", surface.plateau);
     test("send 'M' and it should move forward (+1) on the x-axis", () => {
@@ -255,22 +262,22 @@ describe("test if rover can accept M (move) commands", () => {
 });
 // testing rover command edge cases
 describe("test if rover can accept M (move) commands", () => {
-    let myRover = createMarsRover("East", 100, 10);
-    let myRover2 = createMarsRover("North", 10, 100);
+    let myRover = createMarsRover("East", X_MAX, 10);
+    let myRover2 = createMarsRover("North", 10, Y_MAX);
     let myRover3 = createMarsRover("West", 0, 10);
     let myRove4 = createMarsRover("South", 10, 0);
     let rovers = [];
     rovers.push(myRover, myRover2, myRover3, myRove4);
-    const surface = makeTheSurfaceOfMars(100, 100, rovers);
+    const surface = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
     let myMovingRover = surface.marsRoversOnTheSurface[0];
     let myMovedRover = myMovingRover.followOrders("M", surface.plateau);
     test("send 'M' and it stay put", () => {
-        expect(myMovedRover.x).toBe(100);
+        expect(myMovedRover.x).toBe(X_MAX);
     });
     let myMovingRover2 = surface.marsRoversOnTheSurface[1];
     let myMovedRover2 = myMovingRover2.followOrders("M", surface.plateau);
     test("send 'M' and it stay put", () => {
-        expect(myMovedRover2.y).toBe(100);
+        expect(myMovedRover2.y).toBe(Y_MAX);
     });
     let myMovingRover3 = surface.marsRoversOnTheSurface[2];
     let myMovedRover3 = myMovingRover3.followOrders("M", surface.plateau);
@@ -287,11 +294,26 @@ describe("test if rover can accept M (move) commands", () => {
 describe("test if rover can accept M (move) commands", () => {
     let myRover = createMarsRover("East", 0, 10);
     let myRover2 = createMarsRover("North", 10, 0);
-    let myRover3 = createMarsRover("West", 100, 10);
+    let myRover3 = createMarsRover("West", X_MAX, 10);
     let myRove4 = createMarsRover("South", 10, 10);
+    // edge tests
+    let myRover5 = createMarsRover("East", X_MAX, 10);
+    let myRover6 = createMarsRover("North", 10, Y_MAX);
+    let myRover7 = createMarsRover("West", 0, 10);
+    let myRover8 = createMarsRover("South", 10, 0);
+
     let rovers = [];
-    rovers.push(myRover, myRover2, myRover3, myRove4);
-    const surface = makeTheSurfaceOfMars(100, 100, rovers);
+    rovers.push(
+        myRover,
+        myRover2,
+        myRover3,
+        myRove4,
+        myRover5,
+        myRover6,
+        myRover7,
+        myRover8
+    );
+    const surface = makeTheSurfaceOfMars(X_MAX, Y_MAX, rovers);
     let myMovingRover = surface.marsRoversOnTheSurface[0];
     let myMovedRover = myMovingRover.followOrders("MMMMLL", surface.plateau);
     test("send 'MMMMLL' to East, 0, 10 -> x=4, facing=West", () => {
@@ -310,7 +332,7 @@ describe("test if rover can accept M (move) commands", () => {
         "MLMMRMMR",
         surface.plateau
     );
-    test("send 'MLMMRMMR'  to 'West', 100, 10 -> x=97, facing=North, y=8 ", () => {
+    test(`send 'MLMMRMMR'  to 'West', ${X_MAX}, 10 -> x=97, facing=North, y=8 `, () => {
         expect(myMovedRover3.x).toBe(97);
         expect(myMovedRover3.facing).toBe("North");
         expect(myMovedRover3.y).toBe(8);
@@ -322,7 +344,39 @@ describe("test if rover can accept M (move) commands", () => {
     );
     test("send 'LLMMLLMMLL' to South, 10, 10 -> y=10, facing=North ", () => {
         expect(myMovedRover4.y).toBe(10);
-        expect(myMovedRover3.facing).toBe("North");
+        expect(myMovedRover4.facing).toBe("North");
+    });
+    let myMovingRover5 = surface.marsRoversOnTheSurface[0];
+    let myMovedRover5 = myMovingRover5.followOrders("MMMMLL", surface.plateau);
+    test("send 'MMMMLL' to East, 0, 10 -> x=4, facing=West", () => {
+        expect(myMovedRover5.x).toBe(4);
+        expect(myMovedRover5.facing).toBe("West");
+    });
+    test("send 'LL' to East, 0 -> facing=West", () => {});
+    let myMovingRover6 = surface.marsRoversOnTheSurface[1];
+    let myMovedRover6 = myMovingRover6.followOrders("MMMMMMR", surface.plateau);
+    test("send 'MMMMMMR' to 'North', 10, 0 -> y=6, facing=East", () => {
+        expect(myMovedRover6.y).toBe(6);
+        expect(myMovedRover6.facing).toBe("East");
+    });
+    let myMovingRover7 = surface.marsRoversOnTheSurface[2];
+    let myMovedRover7 = myMovingRover7.followOrders(
+        "MLMMRMMR",
+        surface.plateau
+    );
+    test(`send 'MLMMRMMR'  to 'West', ${X_MAX}, 10 -> x=97, facing=North, y=8 `, () => {
+        expect(myMovedRover7.x).toBe(97);
+        expect(myMovedRover7.facing).toBe("North");
+        expect(myMovedRover7.y).toBe(8);
+    });
+    let myMovingRover8 = surface.marsRoversOnTheSurface[3];
+    let myMovedRover8 = myMovingRover8.followOrders(
+        "LLMMLLMMLL",
+        surface.plateau
+    );
+    test("send 'LLMMLLMMLL' to South, 10, 10 -> y=10, facing=North ", () => {
+        expect(myMovedRover8.y).toBe(10);
+        expect(myMovedRover8.facing).toBe("North");
     });
 });
 
