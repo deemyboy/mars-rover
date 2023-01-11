@@ -1,7 +1,7 @@
 import { createPlateau, Plateau } from "./modules/plateau";
 import { createMarsRover, Rover } from "./modules/rover";
 
-interface SurfaceOfMars {
+interface MartianLandscape {
     newRover?: Rover;
     marsRoversOnTheSurface: Rover[];
     plateau: Plateau;
@@ -10,15 +10,15 @@ interface SurfaceOfMars {
 export function makeTheSurfaceOfMars(
     xAxisLength: number,
     yAxisLength: number,
-    marsRoversOnTheSurface: Rover[]
-): SurfaceOfMars {
+    roversOnMars: Rover[]
+): MartianLandscape {
     const marsPlateau = createPlateau(xAxisLength, yAxisLength);
 
     const createSurface = (
         rovers: Rover[],
         plateau: Plateau
-    ): SurfaceOfMars => {
-        rovers = marsRoversOnTheSurface;
+    ): MartianLandscape => {
+        rovers = roversOnMars;
         plateau = marsPlateau;
         const newRovers: Rover[] = rovers.filter((rov) => {
             return plateau.doesThisRoverFit(rov);
@@ -33,7 +33,7 @@ export function makeTheSurfaceOfMars(
             );
         return { marsRoversOnTheSurface: newRovers, plateau: marsPlateau };
     };
-    return createSurface(marsRoversOnTheSurface, marsPlateau);
+    return createSurface(roversOnMars, marsPlateau);
 }
 
 export function addNewRover(
