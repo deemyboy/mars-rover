@@ -413,9 +413,11 @@ describe("test if rover can accept M (move) commands", () => {
     });
 });
 
-describe(" import json file successfuly ", () => {
-    test("specific test details", () => {
-        console.log(nasaProgram1);
+import * as marsProgram1 from "./program/nasaProgram1.json";
+
+describe("using json file to send in a program ", () => {
+    test("is the file imported succesfully", () => {
+        expect(marsProgram1.plateau).toBe("5 5");
     });
 });
 
