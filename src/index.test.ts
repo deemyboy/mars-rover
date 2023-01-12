@@ -413,6 +413,12 @@ describe("test if rover can accept M (move) commands", () => {
     });
 });
 
+describe(" import json file successfuly ", () => {
+    test("specific test details", () => {
+        console.log(nasaProgram1);
+    });
+});
+
 // test boilerplate
 describe(" desciption ", () => {
     // test("specific test details", () => {
