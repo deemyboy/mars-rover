@@ -413,6 +413,14 @@ describe("test if rover can accept M (move) commands", () => {
     });
 });
 
+describe("create multiple rovers from data", () => {
+    test("multiple rovers are created", () => {
+        //
+        const myRoverCollection: Rover[] = [];
+        expect(myRoverCollection).toBeGreaterThan(0);
+    });
+});
+
 // test boilerplate
 describe(" desciption ", () => {
     // test("specific test details", () => {
