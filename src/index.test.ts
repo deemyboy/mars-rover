@@ -420,6 +420,23 @@ describe("using json file to send in a program ", () => {
         expect(marsProgram1.plateau).toBe("5 5");
     });
 });
+describe("create a plateau from imported data", () => {
+    expect(marsProgram1.plateau).toBe("5 5");
+    const X_MAX = +marsProgram1.plateau.split(" ")[0];
+    const Y_MAX = +marsProgram1.plateau.split(" ")[1];
+    const plateau = createPlateau(X_MAX, Y_MAX);
+    test(`a plateau is created with x-axis length = ${X_MAX}`, () => {
+        expect(plateau.xAxisLength).toBe(X_MAX);
+    });
+    test(`a plateau is created with y-axis length = ${Y_MAX}`, () => {
+        expect(plateau.yAxisLength).toBe(Y_MAX);
+    });
+    test(`a plateau is created with area ${X_MAX} x ${Y_MAX}=${
+        X_MAX * Y_MAX
+    }`, () => {
+        expect(plateau.xAxisLength * plateau.yAxisLength).toBe(X_MAX * Y_MAX);
+    });
+});
 
 // test boilerplate
 describe(" desciption ", () => {
