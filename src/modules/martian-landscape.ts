@@ -43,34 +43,26 @@ export const addNewRovers = (
     roversToDeploy: Rover[],
     plateau: Plateau
 ): Rover[] => {
-    let _landingRovers: Rover[] = [];
-
-    roversToDeploy.filter((newRover) => {
-        if (isThisRoverLandingOnThePlateau(newRover, plateau)) {
-            _landingRovers.push(newRover);
-        }
-    });
-
-    const _deployedRovers: Rover[] = removeAllPancakingRovers(_landingRovers);
-
-    return removeAllPancakingRovers(_landingRovers);
+    return removeAllPancakingRovers(
+        roversToDeploy.filter((newRover) =>
+            isThisRoverLandingOnThePlateau(newRover, plateau)
+        )
+    );
 };
 
 export const addNewRoversToExisting = (
     newRovers: Rover[],
     surface: MartianLandscape
 ): MartianLandscape => {
-    let _landingRovers: Rover[] = [];
-
-    newRovers = [...newRovers, ...surface.roversOnMars];
-
-    newRovers.filter((newRover) => {
-        if (isThisRoverLandingOnThePlateau(newRover, surface.plateau)) {
-            _landingRovers.push(newRover);
-        }
-    });
-
-    const _deployedRovers: Rover[] = removeAllPancakingRovers(_landingRovers);
-
-    return { roversOnMars: _deployedRovers, plateau: surface.plateau };
+    return {
+        roversOnMars: removeAllPancakingRovers(
+            [...newRovers, ...surface.roversOnMars].filter((newRover) => {
+                return isThisRoverLandingOnThePlateau(
+                    newRover,
+                    surface.plateau
+                );
+            })
+        ),
+        plateau: surface.plateau,
+    };
 };
