@@ -1,12 +1,17 @@
 import { Plateau } from "./plateau";
 
+export interface RoverCreationData {
+    facing: facingCompassDirection;
+    x: number;
+    y: number;
+}
 export interface Rover {
     facing: facingCompassDirection;
     x: number;
     y: number;
     turnLeft(): facingCompassDirection;
     turnRight(): facingCompassDirection;
-    move(plateau: Plateau): any;
+    move(plateau: Plateau): Rover;
     getFacing(): facingCompassDirection;
     followOrders(orders: string, plateau: Plateau): Rover;
 }
@@ -45,8 +50,8 @@ export const createMarsRover = (
             return this.facing;
         },
         move(plateau: Plateau): Rover {
-            const maxX = plateau.xAxisLength;
-            const maxY = plateau.yAxisLength;
+            const maxX = plateau.xMax;
+            const maxY = plateau.yMax;
             const facing = this.getFacing();
             if (facing === "North" || facing === "East") {
                 // increment
