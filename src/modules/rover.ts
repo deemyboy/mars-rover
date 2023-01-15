@@ -1,27 +1,27 @@
 import { Plateau } from "./plateau";
 
 export interface RoverCreationData {
-    facing: facingCompassDirection;
+    facing: FacingCompassDirection;
     x: number;
     y: number;
 }
 export interface Rover {
-    facing: facingCompassDirection;
+    facing: FacingCompassDirection;
     x: number;
     y: number;
-    turnLeft(): facingCompassDirection;
-    turnRight(): facingCompassDirection;
+    turnLeft(): FacingCompassDirection;
+    turnRight(): FacingCompassDirection;
     move(plateau: Plateau): Rover;
-    getFacing(): facingCompassDirection;
+    getFacing(): FacingCompassDirection;
     followOrders(orders: string, plateau: Plateau): Rover;
 }
 
 export const compassDirections = ["North", "East", "South", "West"] as const;
 
-export type facingCompassDirection = typeof compassDirections[number];
+export type FacingCompassDirection = typeof compassDirections[number];
 
 export const createMarsRover = (
-    facing: facingCompassDirection,
+    facing: FacingCompassDirection,
     x: number,
     y: number
 ): Rover => {
@@ -29,7 +29,7 @@ export const createMarsRover = (
         facing: facing,
         x: x,
         y: y,
-        turnLeft(): facingCompassDirection {
+        turnLeft(): FacingCompassDirection {
             const maxCompassIndex = compassDirections.length - 1;
             const curentDirection = this.facing;
             const index =
@@ -39,7 +39,7 @@ export const createMarsRover = (
             this.facing = compassDirections[index];
             return this.facing;
         },
-        turnRight(): facingCompassDirection {
+        turnRight(): FacingCompassDirection {
             const maxCompassIndex = compassDirections.length - 1;
             const curentDirection = this.facing;
             const index =
@@ -72,17 +72,17 @@ export const createMarsRover = (
             }
             return this;
         },
-        getFacing(): facingCompassDirection {
+        getFacing(): FacingCompassDirection {
             return this.facing;
         },
         followOrders(orders: string, plateau: Plateau): Rover {
-            let returnRover = { ...this };
+            let rover = { ...this };
             [...orders].forEach((o) => {
-                if (o === "M") returnRover = returnRover.move(plateau);
-                if (o === "L") returnRover.facing = returnRover.turnLeft();
-                if (o === "R") returnRover.facing = returnRover.turnRight();
+                if (o === "M") return rover.move(plateau);
+                if (o === "L") return rover.turnLeft();
+                if (o === "R") return rover.turnRight();
             });
-            return returnRover;
+            return rover;
         },
     };
     return marsRover;
