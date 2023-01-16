@@ -472,7 +472,7 @@ describe("399: test if rover can accept Multiple (MLLMRRLMMR) commands", () => {
     });
 });
 
-import * as marsProgram1 from "./program/nasaProgram1.json";
+import * as marsProgram1 from "./program/masa-program1.json";
 
 describe("using json file to send in a program ", () => {
     test("is the file imported succesfully", () => {
