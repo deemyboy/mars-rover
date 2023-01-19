@@ -3,16 +3,16 @@ import {
     MartianLandscape,
     addNewRovers,
     addNewRoversToExisting,
-} from "./martian-landscape/martian-landscape";
-import { createPlateau } from "./plateau/plateau";
+} from "./martian-landscape/martian-landscape.js";
+import { createPlateau } from "./plateau/plateau.js";
 import {
     createMarsRover,
     Rover,
     RoverCreationData,
     createMarsRoverCollection,
-} from "./rover/rover";
+} from "./rover/rover.js";
 
-import { compassDirections, CompassDirection } from "./types/direction";
+import { compassDirections, CompassDirection } from "./types/direction.js";
 
 import {
     X_MAX,
@@ -20,7 +20,7 @@ import {
     MARS_ROVER_DATA_REGEX,
     PLATEAU_DATA_REGEX,
     MOVE_DATA_REGEX,
-} from "./constants/constants";
+} from "./constants/constants.js";
 
 import * as mars_data from "./data/masa-data.json";
 

@@ -1,5 +1,5 @@
-import { createPlateau } from "./plateau";
-import { X_MAX, Y_MAX } from "../constants/constants";
+import { createPlateau } from "./plateau.js";
+import { X_MAX, Y_MAX } from "../constants/constants.js";
 
 describe("testing plateau dimensions", () => {
     const plateau = createPlateau(X_MAX, Y_MAX);

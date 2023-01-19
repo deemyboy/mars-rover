@@ -3,16 +3,16 @@ import {
     MartianLandscape,
     addNewRovers,
     addNewRoversToExisting,
-} from "./martian-landscape";
-import { createPlateau } from "../plateau/plateau";
+} from "./martian-landscape.js";
+import { createPlateau } from "../plateau/plateau.js";
 import {
     RoverCreationData,
     Rover,
     createMarsRover,
     createMarsRoverCollection,
-} from "../rover/rover";
+} from "../rover/rover.js";
 
-import { X_MAX, Y_MAX } from "../constants/constants";
+import { X_MAX, Y_MAX } from "../constants/constants.js";
 
 describe("testing createMartianLandscape to see if non-landing (coord/s off the plateau) and pancaking rovers are not deployed. Should give 4 legal rovers", () => {
     const plateau = createPlateau(X_MAX, Y_MAX);

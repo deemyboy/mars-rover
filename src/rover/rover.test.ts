@@ -2,7 +2,7 @@ import {
     createMarsRover,
     createMarsRoverCollection,
     RoverCreationData,
-} from "./rover";
+} from "./rover.js";
 describe("testing createMarsRover", () => {
     test("a Mars rover is created facing W at 53,21", () => {
         const rover = createMarsRover("W", 53, 21);
