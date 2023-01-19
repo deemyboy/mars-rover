@@ -1,27 +1,25 @@
-import { Plateau } from "./plateau";
+import { Plateau } from "../plateau/plateau.js";
+import { compassDirections, CompassDirection } from "../types/direction.js";
 
 export interface RoverCreationData {
-    facing: FacingCompassDirection;
+    facing: CompassDirection;
     x: number;
     y: number;
 }
+
 export interface Rover {
-    facing: FacingCompassDirection;
+    facing: CompassDirection;
     x: number;
     y: number;
-    turnLeft(): FacingCompassDirection;
-    turnRight(): FacingCompassDirection;
+    turnLeft(): CompassDirection;
+    turnRight(): CompassDirection;
     move(plateau: Plateau): Rover;
-    getFacing(): FacingCompassDirection;
+    getFacing(): CompassDirection;
     followOrders(orders: string, plateau: Plateau): Rover;
 }
 
-export const compassDirections = ["North", "East", "South", "West"] as const;
-
-export type FacingCompassDirection = typeof compassDirections[number];
-
 export const createMarsRover = (
-    facing: FacingCompassDirection,
+    facing: CompassDirection,
     x: number,
     y: number
 ): Rover => {
@@ -29,7 +27,7 @@ export const createMarsRover = (
         facing: facing,
         x: x,
         y: y,
-        turnLeft(): FacingCompassDirection {
+        turnLeft(): CompassDirection {
             const maxCompassIndex = compassDirections.length - 1;
             const curentDirection = this.facing;
             const index =
@@ -39,7 +37,7 @@ export const createMarsRover = (
             this.facing = compassDirections[index];
             return this.facing;
         },
-        turnRight(): FacingCompassDirection {
+        turnRight(): CompassDirection {
             const maxCompassIndex = compassDirections.length - 1;
             const curentDirection = this.facing;
             const index =
@@ -53,26 +51,26 @@ export const createMarsRover = (
             const maxX = plateau.xMax;
             const maxY = plateau.yMax;
             const facing = this.getFacing();
-            if (facing === "North" || facing === "East") {
+            if (facing === "N" || facing === "E") {
                 // increment
-                if (facing === "North") {
+                if (facing === "N") {
                     this.y = this.y === maxY ? maxY : this.y + 1;
                 }
-                if (facing === "East") {
+                if (facing === "E") {
                     this.x = this.x === maxX ? maxX : this.x + 1;
                 }
             } else {
                 // decrement
-                if (facing === "South") {
+                if (facing === "S") {
                     this.y = this.y === 0 ? 0 : this.y - 1;
                 }
-                if (facing === "West") {
+                if (facing === "W") {
                     this.x = this.x === 0 ? 0 : this.x - 1;
                 }
             }
             return this;
         },
-        getFacing(): FacingCompassDirection {
+        getFacing(): CompassDirection {
             return this.facing;
         },
         followOrders(orders: string, plateau: Plateau): Rover {
@@ -87,3 +85,9 @@ export const createMarsRover = (
     };
     return marsRover;
 };
+
+export function createMarsRoverCollection(
+    roversData: RoverCreationData[]
+): Rover[] {
+    return roversData.map((rd) => createMarsRover(rd.facing, rd.x, rd.y));
+}

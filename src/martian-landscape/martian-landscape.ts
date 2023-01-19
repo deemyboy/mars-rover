@@ -3,8 +3,8 @@ import {
     Plateau,
     isThisRoverLandingOnThePlateau,
     removeAllPancakingRovers,
-} from "./plateau";
-import { createMarsRover, Rover, RoverCreationData } from "./rover";
+} from "../plateau/plateau.js";
+import { createMarsRover, Rover, RoverCreationData } from "../rover/rover.js";
 
 export interface MartianLandscape {
     roversOnMars: Rover[];
@@ -21,23 +21,17 @@ export const createMartianLandscape = (
         return deployableRovers.indexOf(rov) < 0;
     });
 
-    if (floaters && floaters.length > 0)
-        console.log(
-            "these rovers are floating in space somewhere (illegal)",
-            floaters
-        );
+    if (floaters && floaters.length > 0) {
+        // console.log(
+        //     "these rovers are floating in space somewhere (illegal)",
+        //     floaters
+        // );
+    }
     return {
         roversOnMars: deployableRovers,
         plateau: plateau,
     };
 };
-
-export function createMarsRoverCollection(
-    roversData: RoverCreationData[]
-): Rover[] {
-    return roversData.map((rd) => createMarsRover(rd.facing, rd.x, rd.y));
-    // return collectionOfMarsRovers;
-}
 
 export const addNewRovers = (
     roversToDeploy: Rover[],
