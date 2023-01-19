@@ -1,5 +1,5 @@
-import { Rover } from "../rover/rover";
-import { compassDirections } from "../types/direction";
+import { Rover } from "../rover/rover.js";
+import { compassDirections } from "../types/direction.js";
 export interface Plateau {
     xMax: number;
     yMax: number;
