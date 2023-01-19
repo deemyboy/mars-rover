@@ -3,8 +3,8 @@ import {
     Plateau,
     isThisRoverLandingOnThePlateau,
     removeAllPancakingRovers,
-} from "../plateau/plateau.js";
-import { createMarsRover, Rover, RoverCreationData } from "../rover/rover.js";
+} from "../plateau/plateau";
+import { createMarsRover, Rover, RoverCreationData } from "../rover/rover";
 
 export interface MartianLandscape {
     roversOnMars: Rover[];

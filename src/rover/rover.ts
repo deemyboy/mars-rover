@@ -1,5 +1,5 @@
-import { Plateau } from "../plateau/plateau.js";
-import { compassDirections, CompassDirection } from "../types/direction.js";
+import { Plateau } from "../plateau/plateau";
+import { compassDirections, CompassDirection } from "../types/direction";
 
 export interface RoverCreationData {
     facing: CompassDirection;

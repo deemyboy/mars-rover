@@ -25,7 +25,7 @@ import {
 import * as mars_data from "./data/masa-data.json";
 
 describe("parse rover data from imported data", () => {
-    test("a Mars rovers collection is created with a rover facing: 'North', x: 1, y: 2 and facing: 'East',x: 3, y: 3, The length is 2", () => {
+    test("a Mars rovers collection is created with a rover facing: 'N', x: 1, y: 2 and facing: 'E',x: 3, y: 3, The length is 2", () => {
         const parseData = (arr: string[], pattern: RegExp) => {
             return arr.filter((a) => pattern.test(a));
         };
@@ -62,10 +62,10 @@ describe("parse rover data from imported data", () => {
 
         const rover = roversCollection[0];
         const rover2 = roversCollection[1];
-        expect(rover.facing).toBe("North");
+        expect(rover.facing).toBe("N");
         expect(rover.x).toBe(1);
         expect(rover.y).toBe(2);
-        expect(rover2.facing).toBe("East");
+        expect(rover2.facing).toBe("E");
         expect(rover2.x).toBe(3);
         expect(rover2.y).toBe(3);
         expect(roversCollection.length).toBe(2);
